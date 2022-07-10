@@ -30,7 +30,7 @@ export const App = () => {
         setLoading(false);
         if (data.total > perPage) {
           setShowLoadMore(true);
-        } else if (data.total <= images.length + perPage) {
+        } else if (data.total <= page * perPage) {
           setShowLoadMore(false);
           Notiflix.Notify.info(
             "We're sorry, but you've reached the end of search results."
@@ -38,7 +38,6 @@ export const App = () => {
         }
       })
       .catch(onApiError);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, value]);
 
   const onSearch = inputValue => {

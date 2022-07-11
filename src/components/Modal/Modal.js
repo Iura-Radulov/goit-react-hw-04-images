@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import s from './Madal.module.css';
 
 const Modal = ({ closeModal, largeImage }) => {
+  const keyDownCallback = useCallback(e => {
+    if (e.code === 'Escape') {
+      closeModal();
+    }
+  }, []);
+
   useEffect(() => {
-    const handleKeyDown = e => {
-      if (e.code === 'Escape') {
-        closeModal();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', keyDownCallback);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', keyDownCallback);
     };
-  }, [closeModal]);
+  }, []);
 
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
